@@ -24,6 +24,7 @@ defmodule Gt.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Gt.DataCase
+      import Gt.Factory
     end
   end
 

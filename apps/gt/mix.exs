@@ -39,7 +39,10 @@ defmodule Gt.MixProject do
       {:phoenix_pubsub, "~> 2.0"},
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
-      {:jason, "~> 1.0"}
+      {:jason, "~> 1.0"},
+      {:ecto_enum, "~> 1.4.0"},
+      {:bcrypt_elixir, "~> 2.2.0"},
+      {:ex_machina, "~> 2.4", only: :test}
     ]
   end
 
