@@ -20,3 +20,6 @@ config :gt_web, GtWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :gt,
+  accounts_context: Gt.Accounts.Mock

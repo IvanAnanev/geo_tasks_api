@@ -7,5 +7,7 @@ defmodule GtWeb.Router do
 
   scope "/api", GtWeb do
     pipe_through :api
+
+    post "/users/signup", UsersController, :create
   end
 end

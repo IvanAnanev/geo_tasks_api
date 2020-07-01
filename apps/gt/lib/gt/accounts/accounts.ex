@@ -4,7 +4,14 @@ defmodule Gt.Accounts do
   """
   alias Gt.Accounts.User
 
-  @spec create_user(attrs :: map()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
+  defmodule Behaviour do
+    @moduledoc false
+    @callback create_user(attrs :: map()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
+  end
+
+  @behaviour Gt.Accounts.Behaviour
+
+  @impl true
   def create_user(attrs) do
     %User{}
     |> User.changeset(attrs)
