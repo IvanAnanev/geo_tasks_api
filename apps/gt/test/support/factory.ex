@@ -10,4 +10,22 @@ defmodule Gt.Factory do
       role: sequence(:role, [:manager, :driver])
     }
   end
+
+  def geo_task_factory do
+    %Gt.GeoTasks.GeoTask{
+      status: sequence(:role, [:new, :assigned, :done]),
+      manager: build(:user, role: :manager),
+      driver: build(:user, role: :driver),
+      pickup_point: build(:geo_point, lat: 50.0, lng: 50.0),
+      delivery_point: build(:geo_point, lat: 51.0, lng: 51.0)
+    }
+  end
+
+  @srid 4326
+  def geo_point_factory(%{lat: lat, lng: lng}) do
+    %Geo.Point{
+      coordinates: {lat, lng},
+      srid: @srid
+    }
+  end
 end
