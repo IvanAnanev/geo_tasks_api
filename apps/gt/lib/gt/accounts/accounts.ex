@@ -10,6 +10,11 @@ defmodule Gt.Accounts do
     @callback find_user_by_email(email :: binary()) :: {:ok, User.t()} | {:error, :not_found}
     @callback verify_user(user :: User.t(), password :: binary()) ::
                 {:ok, User.t()} | {:error, binary()}
+    @callback authorize(
+                action :: atom(),
+                user :: User.t(),
+                geo_task :: Gt.GeoTasks.GeoTask.t() | nil
+              ) :: :ok | {:error, :forbidden}
   end
 
   @behaviour Gt.Accounts.Behaviour
@@ -31,4 +36,7 @@ defmodule Gt.Accounts do
 
   @impl true
   def verify_user(%User{} = user, password), do: Bcrypt.check_pass(user, password)
+
+  @impl true
+  defdelegate authorize(action, user, geo_task \\ nil), to: Gt.Accounts.Policy
 end

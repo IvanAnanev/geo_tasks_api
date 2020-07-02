@@ -2,7 +2,7 @@ defmodule Gt.GeoTasks.CreateGeoTask do
   @moduledoc """
   Create GeoTask operation.
   """
-  def create_geo_task(%Gt.Accounts.User{role: :manager} = manager, attrs) do
+  def create_geo_task(%Gt.Accounts.User{} = manager, attrs) do
     with {:ok, point_params} <- validate_point_params(attrs),
          {pickup_point, delivery_point} <- prepare_geo_points(point_params) do
       %Gt.GeoTasks.GeoTask{
