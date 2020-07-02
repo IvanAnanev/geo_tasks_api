@@ -8,6 +8,8 @@ defmodule Gt.Accounts do
     @moduledoc false
     @callback create_user(attrs :: map()) :: {:ok, User.t()} | {:error, Ecto.Changeset.t()}
     @callback find_user_by_email(email :: binary()) :: {:ok, User.t()} | {:error, :not_found}
+    @callback verify_user(user :: User.t(), password :: binary()) ::
+                {:ok, User.t()} | {:error, binary()}
   end
 
   @behaviour Gt.Accounts.Behaviour
@@ -26,4 +28,7 @@ defmodule Gt.Accounts do
       user -> {:ok, user}
     end
   end
+
+  @impl true
+  def verify_user(%User{} = user, password), do: Bcrypt.check_pass(user, password)
 end
