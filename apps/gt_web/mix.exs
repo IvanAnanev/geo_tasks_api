@@ -45,7 +45,8 @@ defmodule GtWeb.MixProject do
       {:gt, in_umbrella: true},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:mox, "~> 0.5", only: :test}
+      {:mox, "~> 0.5", only: :test},
+      {:guardian, "~> 2.0"}
     ]
   end
 

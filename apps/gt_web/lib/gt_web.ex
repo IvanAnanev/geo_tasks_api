@@ -23,6 +23,7 @@ defmodule GtWeb do
 
       import Plug.Conn
       import GtWeb.Gettext
+      import GtWeb.ErrorHelpers
       alias GtWeb.Router.Helpers, as: Routes
     end
   end

@@ -19,6 +19,20 @@ defmodule GtWeb.FallbackController do
     conn
     |> put_status(:not_found)
     |> put_view(GtWeb.ErrorView)
-    |> render(:"404")
+    |> render("error.json", %{message: "User not found"})
+  end
+
+  def call(conn, {:error, :token_expired}) do
+    conn
+    |> put_status(:not_found)
+    |> put_view(GtWeb.ErrorView)
+    |> render("error.json", %{message: "Token is expired"})
+  end
+
+  def call(conn, {:error, error_message}) do
+    conn
+    |> put_status(401)
+    |> put_view(GtWeb.ErrorView)
+    |> render("error.json", %{message: error_message})
   end
 end

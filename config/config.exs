@@ -35,6 +35,14 @@ config :phoenix, :json_library, Jason
 
 config :bcrypt_elixir, log_rounds: 4
 
+config :gt, GtWeb.Guardian,
+  issuer: "geo_tasks_api",
+  secret_key: "secretforlocaldevelopment",
+  token_ttl: %{
+    "access" => {4, :hours},
+    "refresh" => {1, :weeks}
+  }
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

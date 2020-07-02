@@ -3,6 +3,21 @@ defmodule GtWeb.ErrorHelpers do
   Conveniences for translating and building error messages.
   """
 
+  def json_errors_response(conn, status, errors) do
+    payload =
+      case errors do
+        errors when is_binary(errors) ->
+          %{general: errors}
+
+        errors ->
+          errors
+      end
+
+    conn
+    |> Plug.Conn.put_status(status)
+    |> Phoenix.Controller.json(%{errors: payload})
+  end
+
   @doc """
   Translates an error message using gettext.
   """
