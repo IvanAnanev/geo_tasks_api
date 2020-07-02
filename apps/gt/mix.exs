@@ -42,7 +42,8 @@ defmodule Gt.MixProject do
       {:jason, "~> 1.0"},
       {:ecto_enum, "~> 1.4.0"},
       {:bcrypt_elixir, "~> 2.2.0"},
-      {:ex_machina, "~> 2.4", only: :test}
+      {:ex_machina, "~> 2.4", only: :test},
+      {:geo_postgis, "~> 3.1"}
     ]
   end
 
