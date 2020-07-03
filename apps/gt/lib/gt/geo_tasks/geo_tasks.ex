@@ -40,6 +40,6 @@ defmodule Gt.GeoTasks do
 
   defp timestamp do
     DateTime.utc_now()
-    |> DateTime.truncate(:seconds)
+    |> DateTime.truncate(:second)
   end
 end

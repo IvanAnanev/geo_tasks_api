@@ -3,7 +3,7 @@ defmodule GtWeb.UsersView do
 
   def render("user.json", %{user: user}) do
     %{
-      data: %{
+      user: %{
         email: user.email,
         role: user.role
       }

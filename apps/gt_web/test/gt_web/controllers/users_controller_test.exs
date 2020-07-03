@@ -19,7 +19,7 @@ defmodule GtWeb.UsersControllerTest do
       assert response.status == 201
 
       assert match?(
-               %{"data" => %{"email" => "some@email.com", "role" => "driver"}},
+               %{"user" => %{"email" => "some@email.com", "role" => "driver"}},
                parse_response(response)
              )
     end

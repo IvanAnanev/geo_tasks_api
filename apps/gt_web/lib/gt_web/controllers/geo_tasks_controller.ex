@@ -21,4 +21,12 @@ defmodule GtWeb.GeoTasksController do
       render(conn, "geo_task.json", geo_task: geo_task)
     end
   end
+
+  def assigned(%{assigns: %{current_user: user}} = conn, %{"id" => id}) do
+    with {:ok, geo_task} <- @geo_tasks.find_geo_task_by_id(id),
+         :ok <- @accounts.authorize(:assigned, user, geo_task),
+         {:ok, geo_task} <- @geo_tasks.assigned_geo_task(user, geo_task) do
+      render(conn, "geo_task.json", geo_task: geo_task)
+    end
+  end
 end

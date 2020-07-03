@@ -13,6 +13,12 @@ defmodule GtWeb.GeoTasksControllerTest do
     pickup_point: %Geo.Point{coordinates: {50.0, 51.0}},
     delivery_point: %Geo.Point{coordinates: {52.0, 53.0}}
   }
+  @geo_task_assigned %GeoTask{
+    id: 1,
+    status: :assigned,
+    pickup_point: %Geo.Point{coordinates: {50.0, 51.0}},
+    delivery_point: %Geo.Point{coordinates: {52.0, 53.0}}
+  }
   @params %{
     "pickup_lat" => 50.0,
     "pickup_lng" => 51.0,
@@ -44,7 +50,7 @@ defmodule GtWeb.GeoTasksControllerTest do
       assert response.status == 201
 
       assert match?(
-               %{"data" => %{"status" => "new"}},
+               %{"geo_task" => %{"status" => "new"}},
                parse_response(response)
              )
     end
@@ -114,7 +120,37 @@ defmodule GtWeb.GeoTasksControllerTest do
       assert response.status == 200
 
       assert match?(
-               %{"data" => %{"status" => "new"}},
+               %{"geo_task" => %{"status" => "new"}},
+               parse_response(response)
+             )
+    end
+  end
+
+  describe "assigned" do
+    test "without authorization token", %{conn: conn} do
+      response = post(conn, "/api/geo_tasks/1/assigned")
+      assert response.status == 401
+
+      assert match?(
+               %{"errors" => %{"general" => "Unauthorized request"}},
+               parse_response(response)
+             )
+    end
+
+    test "with authorize", %{driver_conn: conn} do
+      Gt.Accounts.Mock
+      |> expect(:find_user_by_email, fn _email -> {:ok, @driver} end)
+      |> expect(:authorize, fn _action, _user, _geo_task -> :ok end)
+
+      Gt.GeoTasks.Mock
+      |> expect(:find_geo_task_by_id, fn _id -> {:ok, @geo_task_new} end)
+      |> expect(:assigned_geo_task, fn _user, _geo_task -> {:ok, @geo_task_assigned} end)
+
+      response = post(conn, "/api/geo_tasks/1/assigned")
+      assert response.status == 200
+
+      assert match?(
+               %{"geo_task" => %{"status" => "assigned"}},
                parse_response(response)
              )
     end
