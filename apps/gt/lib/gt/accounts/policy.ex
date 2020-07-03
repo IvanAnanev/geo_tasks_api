@@ -11,7 +11,10 @@ defmodule Gt.Accounts.Policy do
   def authorize(action, user, geo_task \\ nil)
   def authorize(:create, %User{role: :manager}, _geo_task), do: @ok
   def authorize(:view, _user, _geo_task), do: @ok
-  def authorize(:assign, %User{role: :driver}, %GeoTask{driver_id: nil}), do: @ok
-  def authorize(:done, %User{id: id, role: :driver}, %GeoTask{driver_id: id}), do: @ok
+  def authorize(:assigned, %User{role: :driver}, %GeoTask{status: :new}), do: @ok
+
+  def authorize(:done, %User{id: id, role: :driver}, %GeoTask{status: :assigned, driver_id: id}),
+    do: @ok
+
   def authorize(_action, _user, _geo_task), do: @forbidden
 end

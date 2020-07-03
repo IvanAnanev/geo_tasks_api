@@ -32,20 +32,20 @@ defmodule Gt.Accounts.PolicyTest do
     end
   end
 
-  describe "policy assign geo_task" do
+  describe "policy assigned geo_task" do
     test "for manager", %{manager: manager} do
-      geo_task = insert(:geo_task, driver: nil)
-      assert Policy.authorize(:assign, manager, geo_task) == @forbidden
+      geo_task = insert(:geo_task, driver: nil, status: :new)
+      assert Policy.authorize(:assigned, manager, geo_task) == @forbidden
     end
 
     test "for driver and not assigned geo_task", %{driver_1: driver} do
-      geo_task = insert(:geo_task, driver: nil)
-      assert Policy.authorize(:assign, driver, geo_task) == @ok
+      geo_task = insert(:geo_task, driver: nil, status: :new)
+      assert Policy.authorize(:assigned, driver, geo_task) == @ok
     end
 
     test "for driver and assigned geo_task", %{driver_1: driver, driver_2: driver_2} do
       geo_task = insert(:geo_task, driver: driver_2)
-      assert Policy.authorize(:assign, driver, geo_task) == @forbidden
+      assert Policy.authorize(:assigned, driver, geo_task) == @forbidden
     end
   end
 
@@ -69,7 +69,7 @@ defmodule Gt.Accounts.PolicyTest do
     end
 
     test "for driver and assigned geo_task self", %{driver_1: driver} do
-      geo_task = insert(:geo_task, driver: driver)
+      geo_task = insert(:geo_task, driver: driver, status: :assigned)
       assert Policy.authorize(:done, driver, geo_task) == @ok
     end
   end

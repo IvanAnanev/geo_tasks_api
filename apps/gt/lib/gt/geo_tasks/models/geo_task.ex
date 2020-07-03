@@ -7,6 +7,8 @@ defmodule Gt.GeoTasks.GeoTask do
 
   defenum(Status, :geo_task_status, [:new, :assigned, :done])
 
+  @timestamps_opts [type: :utc_datetime]
+
   schema "geo_tasks" do
     belongs_to :manager, Gt.Accounts.User
     belongs_to :driver, Gt.Accounts.User

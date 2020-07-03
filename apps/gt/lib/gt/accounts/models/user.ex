@@ -8,6 +8,8 @@ defmodule Gt.Accounts.User do
 
   defenum(Role, :role, [:manager, :driver])
 
+  @timestamps_opts [type: :utc_datetime]
+
   schema "users" do
     field :email, :string
     field :password_hash, :string
