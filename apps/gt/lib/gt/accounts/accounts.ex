@@ -3,6 +3,7 @@ defmodule Gt.Accounts do
   Accounts context.
   """
   alias Gt.Accounts.User
+  alias Gt.GeoTasks.GeoTask
 
   defmodule Behaviour do
     @moduledoc false
@@ -14,7 +15,7 @@ defmodule Gt.Accounts do
     @callback authorize(
                 action :: atom(),
                 user :: User.t(),
-                geo_task :: Gt.GeoTasks.GeoTask.t()
+                geo_task :: GeoTask.t()
               ) :: :ok | {:error, :forbidden}
   end
 

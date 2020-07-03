@@ -3,8 +3,8 @@ defmodule Gt.GeoTasks do
   GeoTasks context.
   """
 
-  alias Gt.GeoTasks.GeoTask
   alias Gt.Accounts.User
+  alias Gt.GeoTasks.GeoTask
 
   defmodule Behaviour do
     @moduledoc false
@@ -13,6 +13,8 @@ defmodule Gt.GeoTasks do
     @callback find_geo_task_by_id(id :: integer()) :: {:ok, GeoTask.t()} | {:error, :not_found}
     @callback assigned_geo_task(driver :: User.t(), geo_task :: GeoTask.t()) :: {:ok, GeoTask.t()}
     @callback done_geo_task(driver :: User.t(), geo_task :: GeoTask.t()) :: {:ok, GeoTask.t()}
+    @callback all_new_geo_tasks(params :: map()) ::
+                {:ok, [GeoTask.t()]} | {:error, Ecto.Changeset.t()}
   end
 
   @behaviour Gt.GeoTasks.Behaviour
@@ -49,6 +51,9 @@ defmodule Gt.GeoTasks do
     })
     |> Gt.Repo.update()
   end
+
+  @impl true
+  defdelegate all_new_geo_tasks(params), to: Gt.GeoTasks.AllNewGeoTasks
 
   defp timestamp do
     DateTime.utc_now()

@@ -24,6 +24,7 @@ defmodule GtWeb.Router do
       get "/geo_tasks/:id", GeoTasksController, :show
       post "/geo_tasks/:id/assigned", GeoTasksController, :assigned
       post "/geo_tasks/:id/done", GeoTasksController, :done
+      post "/geo_tasks/list_new", GeoTasksController, :index
     end
   end
 end

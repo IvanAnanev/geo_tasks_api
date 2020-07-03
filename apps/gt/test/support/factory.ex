@@ -21,11 +21,7 @@ defmodule Gt.Factory do
     }
   end
 
-  @srid 4326
   def geo_point_factory(%{lat: lat, lng: lng}) do
-    %Geo.Point{
-      coordinates: {lat, lng},
-      srid: @srid
-    }
+    Gt.Utils.geo_point(lat, lng)
   end
 end

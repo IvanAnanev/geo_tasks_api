@@ -192,6 +192,35 @@ defmodule GtWeb.GeoTasksControllerTest do
     end
   end
 
+  describe "index" do
+    test "without authorization token", %{conn: conn} do
+      response = post(conn, "/api/geo_tasks/list_new")
+      assert response.status == 401
+
+      assert match?(
+               %{"errors" => %{"general" => "Unauthorized request"}},
+               parse_response(response)
+             )
+    end
+
+    test "with authorize", %{driver_conn: conn} do
+      Gt.Accounts.Mock
+      |> expect(:find_user_by_email, fn _email -> {:ok, @driver} end)
+      |> expect(:authorize, fn _action, _user -> :ok end)
+
+      Gt.GeoTasks.Mock
+      |> expect(:all_new_geo_tasks, fn _id -> {:ok, [@geo_task_new]} end)
+
+      response = post(conn, "/api/geo_tasks/list_new")
+      assert response.status == 200
+
+      assert match?(
+               %{"geo_tasks" => [%{"status" => "new"}]},
+               parse_response(response)
+             )
+    end
+  end
+
   defp parse_response(resp) do
     Jason.decode!(resp.resp_body)
   end

@@ -2,10 +2,14 @@ defmodule Gt.GeoTasks.CreateGeoTask do
   @moduledoc """
   Create GeoTask operation.
   """
-  def create_geo_task(%Gt.Accounts.User{} = manager, attrs) do
+
+  alias Gt.Accounts.User
+  alias Gt.GeoTasks.GeoTask
+
+  def create_geo_task(%User{} = manager, attrs) do
     with {:ok, point_params} <- validate_point_params(attrs),
          {pickup_point, delivery_point} <- prepare_geo_points(point_params) do
-      %Gt.GeoTasks.GeoTask{
+      %GeoTask{
         status: :new,
         manager_id: manager.id,
         pickup_point: pickup_point,
@@ -34,7 +38,6 @@ defmodule Gt.GeoTasks.CreateGeoTask do
     end
   end
 
-  @srid 4326
   defp prepare_geo_points(%{
          pickup_lat: pickup_lat,
          pickup_lng: pickup_lng,
@@ -42,8 +45,8 @@ defmodule Gt.GeoTasks.CreateGeoTask do
          delivery_lng: delivery_lng
        }) do
     {
-      %Geo.Point{coordinates: {pickup_lat, pickup_lng}, srid: @srid},
-      %Geo.Point{coordinates: {delivery_lat, delivery_lng}, srid: @srid}
+      Gt.Utils.geo_point(pickup_lat, pickup_lng),
+      Gt.Utils.geo_point(delivery_lat, delivery_lng)
     }
   end
 end
