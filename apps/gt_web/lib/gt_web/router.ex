@@ -21,6 +21,7 @@ defmodule GtWeb.Router do
       pipe_through :api_protected
 
       post "/geo_tasks", GeoTasksController, :create
+      get "/geo_tasks/:id", GeoTasksController, :show
     end
   end
 end

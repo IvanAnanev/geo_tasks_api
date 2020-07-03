@@ -34,7 +34,7 @@ defmodule GtWeb.AuthControllerTest do
       assert response.status == 404
 
       assert match?(
-               %{"errors" => %{"general" => "User not found"}},
+               %{"errors" => %{"general" => "Not found"}},
                parse_response(response)
              )
     end
