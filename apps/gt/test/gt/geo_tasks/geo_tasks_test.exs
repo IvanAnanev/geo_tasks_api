@@ -25,4 +25,13 @@ defmodule Gt.GeoTasksTest do
       assert match?({:ok, %GeoTask{status: :assigned}}, result)
     end
   end
+
+  describe "done_geo_task/2" do
+    test "success" do
+      driver = insert(:user, role: :driver)
+      geo_task_assigned = insert(:geo_task, status: :assigned, driver: driver)
+      result = GeoTasks.done_geo_task(driver, geo_task_assigned)
+      assert match?({:ok, %GeoTask{status: :done}}, result)
+    end
+  end
 end

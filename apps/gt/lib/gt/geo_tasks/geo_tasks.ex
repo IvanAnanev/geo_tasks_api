@@ -12,6 +12,7 @@ defmodule Gt.GeoTasks do
                 {:ok, GeoTask.t()} | {:error, Ecto.Changeset.t()}
     @callback find_geo_task_by_id(id :: integer()) :: {:ok, GeoTask.t()} | {:error, :not_found}
     @callback assigned_geo_task(driver :: User.t(), geo_task :: GeoTask.t()) :: {:ok, GeoTask.t()}
+    @callback done_geo_task(driver :: User.t(), geo_task :: GeoTask.t()) :: {:ok, GeoTask.t()}
   end
 
   @behaviour Gt.GeoTasks.Behaviour
@@ -34,6 +35,17 @@ defmodule Gt.GeoTasks do
       status: :assigned,
       driver_id: driver.id,
       assigned_at: timestamp()
+    })
+    |> Gt.Repo.update()
+  end
+
+  @impl true
+  def done_geo_task(%User{} = driver, %GeoTask{} = geo_task) do
+    geo_task
+    |> Ecto.Changeset.change(%{
+      status: :done,
+      driver_id: driver.id,
+      done_at: timestamp()
     })
     |> Gt.Repo.update()
   end

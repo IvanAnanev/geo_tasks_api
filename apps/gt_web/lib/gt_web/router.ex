@@ -23,6 +23,7 @@ defmodule GtWeb.Router do
       post "/geo_tasks", GeoTasksController, :create
       get "/geo_tasks/:id", GeoTasksController, :show
       post "/geo_tasks/:id/assigned", GeoTasksController, :assigned
+      post "/geo_tasks/:id/done", GeoTasksController, :done
     end
   end
 end
