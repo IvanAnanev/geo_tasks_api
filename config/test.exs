@@ -22,4 +22,5 @@ config :gt_web, GtWeb.Endpoint,
 config :logger, level: :warn
 
 config :gt,
-  accounts_context: Gt.Accounts.Mock
+  accounts_context: Gt.Accounts.Mock,
+  geo_tasks_context: Gt.GeoTasks.Mock

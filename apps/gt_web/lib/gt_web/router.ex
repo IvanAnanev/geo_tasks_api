@@ -5,11 +5,22 @@ defmodule GtWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :api_protected do
+    plug GtWeb.Auth.AccessPlug
+  end
+
   scope "/api", GtWeb do
     pipe_through :api
 
     post "/users/signup", UsersController, :create
+
     post "/session", AuthController, :create
     post "/session/refresh", AuthController, :create
+
+    scope "/" do
+      pipe_through :api_protected
+
+      post "/geo_tasks", GeoTasksController, :create
+    end
   end
 end

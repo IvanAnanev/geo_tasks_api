@@ -24,9 +24,16 @@ defmodule GtWeb.FallbackController do
 
   def call(conn, {:error, :token_expired}) do
     conn
-    |> put_status(:not_found)
+    |> put_status(401)
     |> put_view(GtWeb.ErrorView)
     |> render("error.json", %{message: "Token is expired"})
+  end
+
+  def call(conn, {:error, :forbidden}) do
+    conn
+    |> put_status(403)
+    |> put_view(GtWeb.ErrorView)
+    |> render("error.json", %{message: "Forbidden action with you role"})
   end
 
   def call(conn, {:error, error_message}) do

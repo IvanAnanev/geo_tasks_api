@@ -10,10 +10,11 @@ defmodule Gt.Accounts do
     @callback find_user_by_email(email :: binary()) :: {:ok, User.t()} | {:error, :not_found}
     @callback verify_user(user :: User.t(), password :: binary()) ::
                 {:ok, User.t()} | {:error, binary()}
+    @callback authorize(action :: atom(), user :: User.t()) :: :ok | {:error, :forbidden}
     @callback authorize(
                 action :: atom(),
                 user :: User.t(),
-                geo_task :: Gt.GeoTasks.GeoTask.t() | nil
+                geo_task :: Gt.GeoTasks.GeoTask.t()
               ) :: :ok | {:error, :forbidden}
   end
 
