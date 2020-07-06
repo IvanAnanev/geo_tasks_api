@@ -3,6 +3,7 @@ defmodule Gt.GeoTasks do
   GeoTasks context.
   """
 
+  import Ecto.Query
   alias Gt.Accounts.User
   alias Gt.GeoTasks.GeoTask
 
@@ -15,6 +16,7 @@ defmodule Gt.GeoTasks do
     @callback done_geo_task(driver :: User.t(), geo_task :: GeoTask.t()) :: {:ok, GeoTask.t()}
     @callback all_new_geo_tasks(params :: map()) ::
                 {:ok, [GeoTask.t()]} | {:error, Ecto.Changeset.t()}
+    @callback count_assigned_geo_tasks_for_driver(driver :: User.t()) :: integer()
   end
 
   @behaviour Gt.GeoTasks.Behaviour
@@ -54,6 +56,15 @@ defmodule Gt.GeoTasks do
 
   @impl true
   defdelegate all_new_geo_tasks(params), to: Gt.GeoTasks.AllNewGeoTasks
+
+  @impl true
+  def count_assigned_geo_tasks_for_driver(%User{id: id} = _driver) do
+    query =
+      from gt in GeoTask,
+        where: gt.driver_id == ^id and gt.status == "assigned"
+
+    Gt.Repo.aggregate(query, :count)
+  end
 
   defp timestamp do
     DateTime.utc_now()

@@ -43,6 +43,12 @@ defmodule Gt.Accounts.PolicyTest do
       assert Policy.authorize(:assigned, driver, geo_task) == @ok
     end
 
+    test "for driver with already assigned geo_task", %{driver_1: driver} do
+      insert(:geo_task, driver: driver, status: :assigned)
+      geo_task = insert(:geo_task, driver: nil, status: :new)
+      assert Policy.authorize(:assigned, driver, geo_task) == @forbidden
+    end
+
     test "for driver and assigned geo_task", %{driver_1: driver, driver_2: driver_2} do
       geo_task = insert(:geo_task, driver: driver_2)
       assert Policy.authorize(:assigned, driver, geo_task) == @forbidden
