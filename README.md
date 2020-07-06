@@ -10,3 +10,7 @@ project wraped with docker-compose
 docker-compose build
 docker-compose up
 ```
+
+## postman api use examples
+
+[export_postman_api.json](geo_tasks_api.postman_collection.json)

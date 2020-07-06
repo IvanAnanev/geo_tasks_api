@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "ed8e75c9-4dfa-4f82-8c54-8bd7a8661ea0",
+		"name": "geo_tasks_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"driver@test.com\",\n\t\"role\": \"driver\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/users/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"driver@test.com\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/session",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"refresh\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJnZW9fdGFza3NfYXBpIiwiZXhwIjoxNTk0NTU2NDk5LCJpYXQiOjE1OTM5NTE2OTksImlzcyI6Imdlb190YXNrc19hcGkiLCJqdGkiOiJmZTFkNzU2Yy1mZDQyLTQ3NzItYTY5Ny0xYTFmMGNlZjgxODUiLCJuYmYiOjE1OTM5NTE2OTgsInN1YiI6ImRyaXZlckB0ZXN0LmNvbSIsInR5cCI6InJlZnJlc2gifQ.XZGNwdaS1ix3TelYE4JpAe8M9gYUE1IJ2Sy_RdPdKD00Ie0ktWUxXB0VxDFd4O9jcjcWb0R-GvYphaAMxVLerQ\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/session/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"session",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create geo_task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJnZW9fdGFza3NfYXBpIiwiZXhwIjoxNTkzOTY2MTYyLCJpYXQiOjE1OTM5NTE3NjIsImlzcyI6Imdlb190YXNrc19hcGkiLCJqdGkiOiIzOTJmNWMwMS1lMWMwLTQ0OWQtODk1NC0zNWM0YjcyOWE0ZmQiLCJuYmYiOjE1OTM5NTE3NjEsInN1YiI6Im1hbmFnZXJAdGVzdC5jb20iLCJ0eXAiOiJhY2Nlc3MifQ.fC-CtlzPzvq2l6EKNzRqbSRC0vcSLkE_ygWPEsTj5WilulTiDe63kPrPyA_c24T8KGL92bRK7dealBxsZEJjGA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pickup_lat\": 75.0,\n    \"pickup_lng\": 75.0,\n    \"delivery_lat\": 52.0,\n    \"delivery_lng\": 53.0 \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/geo_tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"geo_tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "show geo_task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJnZW9fdGFza3NfYXBpIiwiZXhwIjoxNTkzOTY2MTI2LCJpYXQiOjE1OTM5NTE3MjYsImlzcyI6Imdlb190YXNrc19hcGkiLCJqdGkiOiIxOTYyZmQ4NC02NGJiLTQ4MTUtYjI2ZC1hZDFkNjU1MjU2ODYiLCJuYmYiOjE1OTM5NTE3MjUsInN1YiI6ImRyaXZlckB0ZXN0LmNvbSIsInR5cCI6ImFjY2VzcyJ9.vUsCAaLHqOGcTxyhFOma4DSdxmGkzsNh5gmgweNumb0nQfVizZctrI53VLRE9l6tfQa7gxWCylOWFKIh8GDdAw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/geo_tasks/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"geo_tasks",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "assigned geo_task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJnZW9fdGFza3NfYXBpIiwiZXhwIjoxNTkzODE0MjUyLCJpYXQiOjE1OTM3OTk4NTIsImlzcyI6Imdlb190YXNrc19hcGkiLCJqdGkiOiJiZWUyNTYxYS04YjMzLTQ1YjYtYTIzZi02ZmFiNTAwMmY1OWQiLCJuYmYiOjE1OTM3OTk4NTEsInN1YiI6ImRyaXZlckB0ZXN0LmNvbSIsInR5cCI6ImFjY2VzcyJ9.xWIyUDN7hb1x7e_TJrDRh-kGBFWC4cIhEi712TmVVvM99mDl9N10O11GLZAy_HNnZmtg4gyOgAaBRW4YYDUQSQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/geo_tasks/1/assigned",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"geo_tasks",
+						"1",
+						"assigned"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "done geo_task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/geo_tasks/1/done",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"geo_tasks",
+						"1",
+						"done"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list new geo_tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJnZW9fdGFza3NfYXBpIiwiZXhwIjoxNTkzODE2NzUwLCJpYXQiOjE1OTM4MDIzNTAsImlzcyI6Imdlb190YXNrc19hcGkiLCJqdGkiOiJjZTYyZGVmYS1lOGQxLTRiZjQtODcxNC03MGVjZjRkMWYxMWEiLCJuYmYiOjE1OTM4MDIzNDksInN1YiI6Im1hbmFnZXJAdGVzdC5jb20iLCJ0eXAiOiJhY2Nlc3MifQ.7AdMSqzHbgB5FSX00l22syiuYyCz_DYXothUPCX6U7tzUvmyZiI9Dgj53INVhbEPEJ4JyB3SBQRqUCBSwbh1kw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"current_lat\": 10.0,\n    \"current_lng\": 10.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/geo_tasks/list_new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"geo_tasks",
+						"list_new"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
